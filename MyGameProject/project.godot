@@ -1,0 +1,37 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=4
+
+_global_script_classes=[ {
+"base": "Reference",
+"class": "PlayerData",
+"language": "GDScript",
+"path": "res://scripts/data/player/player_data.gd"
+} ]
+_global_script_class_icons={
+"PlayerData": ""
+}
+
+[application]
+
+config/name="SecretGame"
+run/main_scene="res://scenes/levels/test worlds/PrimaryTestingScene.tscn"
+config/icon="res://icon.png"
+
+[autoload]
+
+GameManager="*res://scripts/data/game manager/game_manager.gd"
+
+[physics]
+
+common/enable_pause_aware_picking=true
+
+[rendering]
+
+environment/default_environment="res://default_env.tres"

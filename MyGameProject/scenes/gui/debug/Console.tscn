@@ -1,0 +1,124 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://scenes/gui/debug/Console.gd" type="Script" id=1]
+
+[sub_resource type="DynamicFontData" id=1]
+font_path = "res://assets/fonts/dm-mono-font/DmMonoRegular-z8ldX.ttf"
+
+[sub_resource type="DynamicFont" id=2]
+font_data = SubResource( 1 )
+
+[sub_resource type="Theme" id=3]
+default_font = SubResource( 2 )
+
+[sub_resource type="StyleBoxFlat" id=4]
+bg_color = Color( 0.192157, 0.192157, 0.192157, 0.596078 )
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_blend = true
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id=5]
+content_margin_left = 8.0
+content_margin_right = 8.0
+content_margin_top = 8.0
+content_margin_bottom = 8.0
+bg_color = Color( 0, 0, 0, 0.392157 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 0, 0, 0, 1 )
+border_blend = true
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="DynamicFontData" id=6]
+font_path = "res://assets/fonts/dm-mono-font/DmMonoLightItalic-jEYZ9.ttf"
+
+[sub_resource type="DynamicFont" id=7]
+font_data = SubResource( 6 )
+
+[sub_resource type="DynamicFontData" id=8]
+font_path = "res://assets/fonts/dm-mono-font/DmMonoMedium-6Y4ex.ttf"
+
+[sub_resource type="DynamicFont" id=9]
+font_data = SubResource( 8 )
+
+[sub_resource type="DynamicFontData" id=10]
+font_path = "res://assets/fonts/dm-mono-font/DmMonoRegular-z8ldX.ttf"
+
+[sub_resource type="DynamicFont" id=11]
+font_data = SubResource( 10 )
+
+[node name="Console" type="Panel"]
+self_modulate = Color( 1, 1, 1, 0.784314 )
+anchor_left = 0.0117188
+anchor_top = 0.643333
+anchor_right = 0.987305
+anchor_bottom = 0.976667
+theme = SubResource( 3 )
+custom_styles/panel = SubResource( 4 )
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Input" type="LineEdit" parent="."]
+anchor_left = 0.00600601
+anchor_top = 0.82
+anchor_right = 0.862863
+anchor_bottom = 0.94
+focus_next = NodePath("../Clear")
+focus_previous = NodePath(".")
+virtual_keyboard_enabled = false
+caret_blink = true
+caret_blink_speed = 0.45
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Output" type="RichTextLabel" parent="."]
+anchor_left = 0.00600601
+anchor_top = 0.045
+anchor_right = 0.992993
+anchor_bottom = 0.82
+focus_mode = 2
+mouse_filter = 1
+custom_styles/normal = SubResource( 5 )
+custom_fonts/italics_font = SubResource( 7 )
+custom_fonts/bold_font = SubResource( 9 )
+custom_fonts/normal_font = SubResource( 11 )
+custom_constants/shadow_as_outline = 0
+bbcode_enabled = true
+bbcode_text = "Commands that you enter will be shown here.
+For a list of valid commands, type [color=green][b]commands[/b][/color] and press \"Enter\"."
+text = "Commands that you enter will be shown here.
+For a list of valid commands, type commands and press \"Enter\"."
+scroll_following = true
+selection_enabled = true
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Clear" type="Button" parent="."]
+anchor_left = 0.867198
+anchor_top = 0.82
+anchor_right = 0.991322
+anchor_bottom = 0.94
+focus_next = NodePath("../Input")
+focus_previous = NodePath("../Submit")
+text = "Clear "
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[connection signal="text_entered" from="Input" to="." method="_on_Input_text_entered"]
+[connection signal="pressed" from="Clear" to="." method="_on_Clear_pressed"]

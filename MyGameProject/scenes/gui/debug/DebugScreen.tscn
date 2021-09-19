@@ -1,0 +1,54 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://scenes/gui/debug/DebugScreen.gd" type="Script" id=1]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.423529, 0.423529, 0.423529, 1 )
+border_width_left = 6
+border_width_top = 6
+border_width_right = 6
+border_width_bottom = 6
+border_color = Color( 0, 0, 0, 1 )
+border_blend = true
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+shadow_color = Color( 0, 0, 0, 0.796078 )
+shadow_size = 7
+shadow_offset = Vector2( 4, 4 )
+
+[node name="DebugScreen" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -0.667419
+margin_top = -0.667419
+margin_right = -0.667419
+margin_bottom = -0.667419
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="InfoPanel" type="Panel" parent="."]
+self_modulate = Color( 1, 1, 1, 0.458824 )
+anchor_left = 0.0107422
+anchor_top = 0.0466667
+anchor_right = 0.985352
+anchor_bottom = 0.56
+margin_top = -1.90735e-06
+custom_styles/panel = SubResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="WorldName" type="Label" parent="InfoPanel"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 489.0
+margin_bottom = 20.0
+custom_constants/shadow_as_outline = 2
+text = "WorldName"
+__meta__ = {
+"_edit_use_anchors_": false
+}

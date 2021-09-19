@@ -1,47 +1,49 @@
 extends Node
 
 # The default instance of the player. 
-var player = PlayerData.new()
+var player : PlayerData = PlayerData.new()
 
-var path = "user://saves/"
-var ext = ".jwg" # In Doc Brown's voice: "MY INITIALS!"
+# The save path and file extension (put here so that they can be changed easily if needed)
+var path : String = "user://saves/"
+var ext : String = ".jwg" # In Doc Brown's voice: "MY INITIALS!"
 
+# This is used to track whether or not we should allow the console to be brought up
+var allow_console : bool = true
+var debugmode : bool = false
+
+# The currently selected game file
+var current_game_file : String = "new_blank"
+
+# This enum helps us determine properties of a game file
+enum property {NAME, USED}
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	start_new_game("Xander", "xanderini")
+	start_new_game(current_game_file)
 
 # When called, this starts a new game
-func start_new_game(var player_name : String, var save_name : String):
-	# Initialize the player with starting values
-	player.level_player_is_in = ""
-	player.save_file_name = save_name
-	player.player_name = player_name
-	player.current_health = 100.0
-	player.max_health = 100.0
-	player.max_health_multiplier = 1.0
-	player.current_astral_energy = 50.0
-	player.max_astral_energy = 50.0
-	player.max_astral_energy_multiplier = 1.0
-	player.total_secrets_found = 0
-	player.total_inhabited_people = 0
-	player.total_inhabited_objects = 0
-	player.is_save_file_used = true
+func start_new_game(var player_name : String):
+	# TODO: Make sure the file isn't being used first!
+	# TODO: Write handling code here (check if the player wants to reset the file)
 	
+	# Initialize the player with starting values
+	player.initialize(player_name)
 	
 	# Save the game
-	save_game("ThisFileIsValid", player)
-	load_game("NowLoadOneThatDoesNotExist")
+	save_game(current_game_file, player)
+
+	# TODO: Game launch code here (start loading first level)
 	
 # Saves the current game progress
 func save_game(var game : String, var data : PlayerData):
+	var new_path = path+game+"/"
 	# Create a save directory instance
 	var folder = Directory.new()
-	folder.make_dir_recursive(path)
+	folder.make_dir_recursive(new_path)
 	
 	# Create a file instance and open it for writing. 
 	var f = File.new()
-	f.open(path+game+ext, File.WRITE)
+	f.open(new_path + game + ext, File.WRITE)
 	
 	# Mark this file as in-use
 	data.is_save_file_used = true
@@ -49,7 +51,7 @@ func save_game(var game : String, var data : PlayerData):
 	# Now store the data to disk and close the file
 	f.store_line(to_json(inst2dict(data)))
 	f.close()
-	print('Succesfully saved "'+game+ext+'" to disk!')
+	print('Succesfully saved "' + game + ext +'" to disk!')
 
 # Loads a game into memory
 func load_game(var game : String):
@@ -58,33 +60,35 @@ func load_game(var game : String):
 	
 	if player:
 		player.get_statistics(player)
+		print("Loaded the game succesfully!")
 	else:
-		printerr("Error loading the game, the selected file doesn't exist.")
+		printerr('Cannot load file "' + game + ext + '" as it does not exist!')
 		return
 	
-# Checks if a file is in use
-func is_file_in_use(var game : String):
+# Get a particular property from a file
+func get_file_property(var game : String, var p):
 	var data = open_if_exists(game)
 	if data:
-		return data.is_save_file_used
-		
-# Returns the name of the file from within the file
-func get_file_name(var game : String):
-	var data = open_if_exists(game)
-	if data:
-		return data.save_file_name
+		match(p):
+			property.NAME:
+				return data.save_file_name
+			property.USED:
+				return data.is_save_file_used
+			_:
+				printerr('"' + p + '" is not a valid property of "' + game + ext + '"! Expected "NAME" or "USED".')
+				return
 		
 # Opens the file if it exists, and if it doesn't, returns an error.
 func open_if_exists(var game : String):
+	var new_path = path + game + "/" + game + ext
 	var f = File.new()
-	var data = PlayerData.new()
-	if f.file_exists(path+game+ext):
-		f.open(path+game+ext, File.READ)
-		data = dict2inst(parse_json(f.get_line()))
+	if f.file_exists(new_path):
+		f.open(new_path, File.READ)
+		var data = dict2inst(parse_json(f.get_line()))
 		f.close()
 		
 		return data
 	else:
-		printerr('CRITICAL ERROR: File ' + '"'+game+ext+'" was not found!')
+		printerr('CRITICAL ERROR: File ' + '"' + game + ext +'" was not found!')
 		return
 

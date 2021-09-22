@@ -1,17 +1,42 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://scenes/gui/debug/Console.gd" type="Script" id=1]
 
-[sub_resource type="DynamicFontData" id=1]
-font_path = "res://assets/fonts/dm-mono-font/DmMonoRegular-z8ldX.ttf"
+[sub_resource type="StyleBoxFlat" id=9]
 
-[sub_resource type="DynamicFont" id=2]
-font_data = SubResource( 1 )
+[sub_resource type="StyleBoxFlat" id=10]
+bg_color = Color( 0.792157, 0.792157, 0.792157, 1 )
 
-[sub_resource type="Theme" id=3]
-default_font = SubResource( 2 )
+[sub_resource type="StyleBoxFlat" id=11]
+bg_color = Color( 0.243137, 0.243137, 0.243137, 1 )
 
-[sub_resource type="StyleBoxFlat" id=4]
+[sub_resource type="StyleBoxFlat" id=12]
+bg_color = Color( 0, 0, 0, 0.784314 )
+border_width_left = 16
+border_color = Color( 0, 0, 0, 0.784314 )
+
+[sub_resource type="DynamicFontData" id=5]
+antialiased = false
+hinting = 0
+font_path = "res://assets/fonts/pixel-tandysoft-font/PixelTandysoft-0rJG.ttf"
+
+[sub_resource type="DynamicFont" id=6]
+size = 20
+font_data = SubResource( 5 )
+
+[sub_resource type="Theme" id=7]
+default_font = SubResource( 6 )
+VScrollBar/icons/decrement = null
+VScrollBar/icons/decrement_highlight = null
+VScrollBar/icons/increment = null
+VScrollBar/icons/increment_highlight = null
+VScrollBar/styles/grabber = SubResource( 9 )
+VScrollBar/styles/grabber_highlight = SubResource( 10 )
+VScrollBar/styles/grabber_pressed = SubResource( 11 )
+VScrollBar/styles/scroll = SubResource( 12 )
+VScrollBar/styles/scroll_focus = null
+
+[sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.192157, 0.192157, 0.192157, 0.596078 )
 border_width_left = 3
 border_width_top = 3
@@ -23,95 +48,110 @@ corner_radius_top_right = 6
 corner_radius_bottom_right = 6
 corner_radius_bottom_left = 6
 
-[sub_resource type="StyleBoxFlat" id=5]
-bg_color = Color( 0, 0, 0, 0.392157 )
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color( 0, 0, 0, 1 )
-corner_radius_top_left = 6
-corner_radius_top_right = 6
-corner_radius_bottom_right = 6
-corner_radius_bottom_left = 6
-
-[sub_resource type="StyleBoxFlat" id=6]
-content_margin_left = 8.0
-content_margin_right = 8.0
-content_margin_top = 8.0
-content_margin_bottom = 8.0
-bg_color = Color( 0, 0, 0, 0.392157 )
+[sub_resource type="StyleBoxFlat" id=14]
+bg_color = Color( 0.235294, 0.235294, 0.235294, 0.588235 )
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
 border_color = Color( 0, 0, 0, 1 )
-border_blend = true
 corner_radius_top_left = 6
 corner_radius_top_right = 6
 corner_radius_bottom_right = 6
 corner_radius_bottom_left = 6
 
-[sub_resource type="DynamicFontData" id=7]
-font_path = "res://assets/fonts/dm-mono-font/DmMonoLightItalic-jEYZ9.ttf"
+[sub_resource type="StyleBoxFlat" id=2]
+content_margin_left = 8.0
+bg_color = Color( 0, 0, 0, 0.588235 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 0, 0, 0, 1 )
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+anti_aliasing = false
 
-[sub_resource type="DynamicFont" id=8]
-font_data = SubResource( 7 )
+[sub_resource type="DynamicFontData" id=3]
+antialiased = false
+hinting = 0
+font_path = "res://assets/fonts/pixel-tandysoft-font/PixelTandysoft-0rJG.ttf"
 
-[sub_resource type="DynamicFontData" id=9]
-font_path = "res://assets/fonts/dm-mono-font/DmMonoMedium-6Y4ex.ttf"
+[sub_resource type="DynamicFont" id=4]
+size = 20
+font_data = SubResource( 3 )
 
-[sub_resource type="DynamicFont" id=10]
-font_data = SubResource( 9 )
+[sub_resource type="StyleBoxFlat" id=8]
+bg_color = Color( 0, 0, 0, 0.705882 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 0, 0, 0, 1 )
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+anti_aliasing = false
 
-[sub_resource type="DynamicFontData" id=11]
-font_path = "res://assets/fonts/dm-mono-font/DmMonoRegular-z8ldX.ttf"
-
-[sub_resource type="DynamicFont" id=12]
-font_data = SubResource( 11 )
+[sub_resource type="StyleBoxFlat" id=13]
+bg_color = Color( 0, 0, 0, 1 )
 
 [node name="Console" type="Panel"]
-self_modulate = Color( 1, 1, 1, 0.784314 )
-anchor_left = 0.0117188
-anchor_top = 0.643333
-anchor_right = 0.987305
-anchor_bottom = 0.976667
-theme = SubResource( 3 )
-custom_styles/panel = SubResource( 4 )
+self_modulate = Color( 1, 1, 1, 0 )
+anchor_top = -0.00117851
+anchor_right = 1.0
+anchor_bottom = 0.998821
+theme = SubResource( 7 )
+custom_styles/panel = SubResource( 1 )
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": true
 }
 
 [node name="Input" type="LineEdit" parent="."]
-anchor_left = 0.006006
-anchor_top = 0.819999
-anchor_right = 0.992993
-anchor_bottom = 0.974998
-custom_styles/normal = SubResource( 5 )
+anchor_top = 0.898333
+anchor_right = 1.0
+anchor_bottom = 0.975
+focus_neighbour_top = NodePath(".")
+focus_neighbour_bottom = NodePath(".")
+custom_styles/focus = SubResource( 14 )
+custom_styles/normal = SubResource( 2 )
+custom_fonts/font = SubResource( 4 )
 virtual_keyboard_enabled = false
 clear_button_enabled = true
 shortcut_keys_enabled = false
+placeholder_text = "Enter commands here."
 caret_blink = true
 caret_blink_speed = 0.45
 __meta__ = {
 "_edit_use_anchors_": true
 }
 
-[node name="Output" type="RichTextLabel" parent="."]
-anchor_left = 0.00600601
-anchor_top = 0.045
-anchor_right = 0.992993
-anchor_bottom = 0.82
+[node name="Panel" type="Panel" parent="."]
+show_behind_parent = true
+light_mask = 0
+anchor_left = 5.12227e-09
+anchor_top = 0.223433
+anchor_right = 1.0
+anchor_bottom = 0.898433
+custom_styles/panel = SubResource( 8 )
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Output" type="RichTextLabel" parent="Panel"]
+anchor_left = 0.00585938
+anchor_top = 0.0148148
+anchor_right = 0.993164
+anchor_bottom = 0.980247
 focus_mode = 2
 mouse_filter = 1
-custom_styles/normal = SubResource( 6 )
-custom_fonts/italics_font = SubResource( 8 )
-custom_fonts/bold_font = SubResource( 10 )
-custom_fonts/normal_font = SubResource( 12 )
-custom_constants/shadow_as_outline = 0
+custom_styles/focus = SubResource( 13 )
 bbcode_enabled = true
-bbcode_text = "Command output will be shown here. To list valid commands, use [color=green][b]ls commands[/b][/color]."
+bbcode_text = "Command output will be shown here. To list valid commands, use [color=green]ls commands[/color]."
 text = "Command output will be shown here. To list valid commands, use ls commands."
 scroll_following = true
 selection_enabled = true

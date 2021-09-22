@@ -8,8 +8,8 @@ var path : String = "user://saves/"
 var ext : String = ".jwg" # In Doc Brown's voice: "MY INITIALS!"
 
 # This is used to track whether or not we should allow the console to be brought up
-var allow_console : bool = true
 var debugmode : bool = false
+var devops : bool = true
 
 # The currently selected game file
 var current_game_file : String = "new_blank"

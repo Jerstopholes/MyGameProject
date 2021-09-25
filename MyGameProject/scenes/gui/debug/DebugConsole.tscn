@@ -1,0 +1,91 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://scenes/gui/debug/exit.gd" type="Script" id=1]
+[ext_resource path="res://scenes/gui/debug/DebugConsole.gd" type="Script" id=2]
+[ext_resource path="res://scenes/gui/debug/debugmode.gd" type="Script" id=3]
+[ext_resource path="res://scenes/gui/debug/clear.gd" type="Script" id=4]
+[ext_resource path="res://scenes/gui/debug/define.gd" type="Script" id=5]
+
+[sub_resource type="DynamicFontData" id=1]
+antialiased = false
+hinting = 0
+font_path = "res://assets/fonts/pixel-tandysoft-font/PixelTandysoft-0rJG.ttf"
+
+[sub_resource type="DynamicFont" id=2]
+size = 20
+font_data = SubResource( 1 )
+
+[sub_resource type="Theme" id=3]
+default_font = SubResource( 2 )
+
+[node name="DebugConsole" type="Control"]
+anchor_top = -0.00416667
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = SubResource( 3 )
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Commands" type="Node" parent="."]
+
+[node name="clear" type="Node" parent="Commands"]
+script = ExtResource( 4 )
+_name = "clear"
+_desc = "Clears the console."
+
+[node name="exit" type="Node" parent="Commands"]
+script = ExtResource( 1 )
+_name = "exit"
+_desc = "Exits the console without clearing it."
+
+[node name="debugmode" type="Node" parent="Commands"]
+script = ExtResource( 3 )
+_name = "debugmode <on> <off>"
+_desc = "Sets debugging mode to either on or off."
+arguments = [ "" ]
+
+[node name="define" type="Node" parent="Commands"]
+script = ExtResource( 5 )
+_name = "Define <command>"
+_desc = "Defines a command and its expected parameters."
+arguments = [ NodePath("") ]
+
+[node name="Input" type="LineEdit" parent="."]
+anchor_left = 0.00078125
+anchor_top = 0.938866
+anchor_right = 0.999219
+anchor_bottom = 0.972199
+placeholder_text = "Enter Command Here"
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Tabs" type="TabContainer" parent="."]
+anchor_left = 0.00234375
+anchor_top = 0.338866
+anchor_right = 0.996875
+anchor_bottom = 0.934699
+tab_align = 0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Output" type="RichTextLabel" parent="Tabs"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 20.0
+margin_right = -4.0
+margin_bottom = -4.0
+bbcode_enabled = true
+bbcode_text = "[color=green]FILLER TEXT[/color]
+"
+text = "FILLER TEXT
+"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="text_entered" from="Input" to="." method="_on_Input_text_entered"]

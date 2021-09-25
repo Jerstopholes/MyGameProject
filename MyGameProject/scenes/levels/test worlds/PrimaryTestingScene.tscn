@@ -1,14 +1,21 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://scenes/characters/main/Player.tscn" type="PackedScene" id=1]
-[ext_resource path="res://scenes/gui/debug/DebugScreen.tscn" type="PackedScene" id=2]
-[ext_resource path="res://scenes/gui/debug/Console.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/levels/test worlds/Label.gd" type="Script" id=2]
+[ext_resource path="res://scenes/gui/debug/DebugConsole.tscn" type="PackedScene" id=3]
+
+[sub_resource type="DynamicFontData" id=1]
+antialiased = false
+hinting = 0
+font_path = "res://assets/fonts/pixel-tandysoft-font/PixelTandysoft-0rJG.ttf"
+
+[sub_resource type="DynamicFont" id=2]
+size = 20
+outline_size = 1
+outline_color = Color( 0, 0, 0, 1 )
+font_data = SubResource( 1 )
 
 [node name="PrimaryTestingScene" type="Spatial"]
-
-[node name="DebugScreen" parent="." instance=ExtResource( 2 )]
-
-[node name="Console" parent="." instance=ExtResource( 3 )]
 
 [node name="Lights" type="Spatial" parent="."]
 
@@ -20,3 +27,16 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0 )
 
 [node name="DebugCamera" type="Camera" parent="."]
 transform = Transform( 1, 0, 0, 0, 0.984808, 0.173648, 0, -0.173648, 0.984808, 0, 11, 14 )
+
+[node name="Label" type="Label" parent="."]
+margin_right = 213.0
+margin_bottom = 71.0
+custom_fonts/font = SubResource( 2 )
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DebugConsole" parent="." instance=ExtResource( 3 )]
+
+[editable path="DebugConsole"]

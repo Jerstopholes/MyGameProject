@@ -7,32 +7,6 @@ enum {
 	ARG_STRING,
 }
 
-# Array that holds valid function names
-const functions = [
-	"speed",
-	"debugmode",
-	"commands",
-	"functions",
-	"godmode",
-	"jumpheight",
-	"unlockall",
-	"devops",
-]
-
-# Array which stores information about the callable functions
-const function_list = [
-	'--- VALID FUNCTIONS ---',
-	'USE [color=green]SET[/color] WITH...',
-	str(">	 [color=green]speed (arg: number)[/color]",
-	" -- Sets the speed of the player with [color=yellow]number[/color]."),
-	str(">	 [color=green]debugmode (arg: on/off)[/color]",
-	" -- Sets debugging mode to either [color=yellow]on[/color]/[color=yellow]off[/color]"),
-	str(">	 [color=green]godmode (arg: on/off)[/color] -- Used to make the player invincible."),
-	str(">	 [color=green]jumpheight (arg: number)[/color] -- Used to set the player's jump height with [color=yellow]number[/color]."),
-	str(">	 [color=green]unlockall (arg: on/off)[/color] -- Unlocks all player abilities."),
-	str(">	 [color=green]devops (arg: on/off)[/color] -- Allows execution of developer level commands."),
-	
-]
 # Array holding valid commands and their arguments
 const commands = [
 	["clear", []],
@@ -42,15 +16,49 @@ const commands = [
 	["help", [ARG_STRING]],
 ]
 
+
+# Array that holds valid function names
+const functions = [
+	"speed",
+	"debugmode",
+	"godmode",
+	"jumpheight",
+	"unlockall",
+	"devops",
+]
+
+# Array holding parameters
+const parameters = [
+	"commands",
+	"functions",
+]
+
+# Array which stores information about the callable functions
+const function_list = [
+	'[color=teal]--- VALID FUNCTIONS LIST ---[/color]',
+	str("-> [color=green]SET[/color] [color=yellow]speed[/color] ([color=aqua]number[/color])",
+	" -- Sets the speed of the player with [color=aqua]number[/color]."),
+	str("-> [color=green]SET[/color] [color=yellow]debugmode[/color] ([color=aqua]on/off[/color])",
+	" -- Sets debugging mode to either [color=aqua]on/off[/color]."),
+	str("-> [color=green]SET[/color] [color=yellow]godmode[/color] ([color=aqua]on/off[/color]) -- Used to make the player invincible."),
+	str("-> [color=green]SET[/color] [color=yellow]jumpheight[/color] ([color=aqua]number[/color]) -- Used to set the player's jump height with [color=aqua]number[/color]."),
+	str("-> [color=green]SET[/color] [color=yellow]unlockall[/color] ([color=aqua]on/off[/color]) -- Unlocks all player abilities."),
+	str("-> [color=green]SET[/color] [color=yellow]devops[/color] ([color=aqua]on/off[/color]) -- Allows execution of [color=blue]developer level[/color] commands."),
+	str("[color=teal]--- END OF LIST ---[/color]")
+	
+]
+
 # Array which stores information about the commands and their arguments
 const command_list = [
-	'--- VALID COMMANDS ---',
+	'[color=teal]--- VALID COMMAND LIST ---[/color]',
 	'[color=green]clear[/color] -- Clears the console of all text.',
-	'[color=green]exit[/color] -- Clears and exits the console.',
-	'[color=green]ls <commands> OR <functions>[/color] -- Lists all valid commands/functions you can use.',
-	str('[color=green]set (arg: func, arg: param)[/color] -- Sets the function with the parameter.',
-	' For valid functions, use [color=green]ls functions[/color].'),
-	'[color=green]help <command name>[/color] -- Displays helpful information for using specific commands.'
+	'[color=green]exit[/color] -- Exits the console and leaves console output intact.',
+	'[color=green]ls [/color][color=aqua]<commands>[/color] OR [color=aqua]<functions>[/color] -- Lists all valid commands/functions you can use.',
+	str('[color=green]set [/color]([color=yellow]func[/color], [color=aqua]param[/color])', 
+	'-- Sets the [color=yellow]function[/color]', ' with the [color=aqua]parameter[/color].',
+	' For valid functions, use [color=green]ls[/color] [color=aqua]functions[/color].'),
+	'[color=green]help[/color] [color=aqua]<command>[/color] -- Displays helpful information for using specific commands.',
+	"[color=teal]--- END OF LIST ---[/color]"
 ]
 
 # Command history
@@ -62,52 +70,78 @@ var show_history : bool = false
 
 var reset_text
 
+onready var input = $Input
+onready var output = $Tabs/Console
+onready var debug = $"Tabs/Debug Info"
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	reset_text = $Panel/Output.bbcode_text
-	hide()
+	# Store the reset text for the console
+	reset_text = output.bbcode_text
+	
+	# Fill up the comms array
+	for c in commands:
+		comms.append(c[0])
+	
+	# Hide the console on startup
+	self.visible = false
 	
 func _process(delta):
 	# Toggle the console
-	if Input.is_action_just_released("console"):
+	if Input.is_action_just_pressed("console"):
 		self.visible = !self.visible
 		# Don't catch the tilde!
-		$Input.text = ""
+		input.text = ""
 		
-		# Grabs the focus of the input field
-		if self.visible:
-			# Ensure that the DebugScreen isn't in the way
-			$Input.grab_focus()
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _input(event):
-	if $Input.has_focus():
-		if Input.is_action_just_pressed("scroll_up_history"):
-			if show_history:
-				command_history_index += 1
-			else:
-				command_history_index = 0
-			if command_history_index >= command_history.size():
-				command_history_index = command_history.size() -1
-			
-			if command_history.size() > 0:
-				$Input.text = command_history[command_history_index]
-				$Input.caret_position = command_history[command_history_index].length()
+	# Allow the display of debug information when enabled
+	if GameManager.debugmode:
+		$Tabs.set_tab_disabled(1, false)
+		$Tabs.set_tab_title(1, "Debug Info")
+	else:
+		$Tabs.set_tab_disabled(1, true)
+		$Tabs.set_tab_title(1, "")
+		
+	# Display debugging information only when the debug tab is selected
+	if $Tabs.current_tab == 1:
+		input.hide()
+		$CopyButtonPanel.show()
+		debug.bbcode_text = str("\n[color=aqua]Frames/sec[/color]: ", Engine.get_frames_per_second(),
+		"\n[color=aqua]Memory usage[/color]: ", OS.get_static_memory_usage(),
+		"\n[color=aqua]Video Backend[/color]: ", OS.get_video_driver_name(OS.get_current_video_driver()),
+		"\n[color=aqua]VSync[/color]: ", OS.is_vsync_enabled(),
+		"\n[color=aqua]Data Location[/color]: ", OS.get_user_data_dir())
+	elif $Tabs.current_tab == 0:
+		debug.bbcode_text = "If you see this message, I broke something."
+		$CopyButtonPanel.hide()
+		input.show()
+		input.grab_focus()
+		
+		if input.has_focus():
+			if Input.is_action_just_pressed("scroll_up_history"):
+				if show_history:
+					command_history_index += 1
+				else:
+					command_history_index = 0
+				if command_history_index >= command_history.size():
+					command_history_index = command_history.size() -1
 				show_history = true
-		
-		if Input.is_action_just_pressed("scroll_down_history"):
-			if show_history:
-				command_history_index -= 1
-			else:
-				command_history_index = 0
-			if command_history_index <= 0:
-				command_history_index = 0
 				
-			if command_history.size() > 0:
-				$Input.text = command_history[command_history_index]
-				$Input.caret_position = command_history[command_history_index].length()
+				if command_history.size() > 0 and show_history:
+					input.text = command_history[command_history_index]
+					input.caret_position = command_history[command_history_index].length()
+
+			if Input.is_action_just_pressed("scroll_down_history"):
+				if show_history:
+					command_history_index -= 1
+				else:
+					command_history_index = 0
+				if command_history_index <= 0:
+					command_history_index = 0
 				show_history = true
+
+				if command_history.size() > 0 and show_history:
+					input.text = command_history[command_history_index]
+					input.caret_position = command_history[command_history_index].length()
+
 
 
 func execute_command(var text : String):
@@ -125,42 +159,57 @@ func execute_command(var text : String):
 			# Not enough parameters
 			if words.size() != c[1].size():
 				output_text(str("[color=red]ERROR:[/color]",' Failure executing "', command_word, 
-				'", expected ', c[1].size(), ' parameter(s).'))
+				'", expected ', c[1].size(), ' parameter(s), and received ', words.size(), "."))
 				return
+			
+			# Incorrect parameter type was used for the command argument
 			for i in range(words.size()):
-				# Incorrect parameter was used
-				if not check_type(words[i], c[1][i]):
+				if not check_args(words[i], c[1][i]):
 					output_text(str("[color=red]ERROR:[/color]", ' Failure executing "', command_word,
-					'" parameter ', (i + 1), '("', words[i], '") is of the wrong type.'))
+					'" parameter ', (i + 1), '("', words[i], '") is not the expected type.'))
 					return
-					
-				# The function does not exist
-				if not command_word == "help":
-					if not check_function(words[0]):
-						output_text(str('[color=red]ERROR:[/color] Failure executing "',
-						command_word,'", function "', words[0], '" does not exist!'))
-						return
-				else:
-					if not check_command(words[0]):
-						output_text(str('[color=red]ERROR:[/color] Cannot return help on "', words[0],
-						'", it does not exist!'))
-						return
-						
+
+
+			# The function, parameter or command does not exist (yikes!)
+			if not words.empty():
+				if not check_command(words[0]) and not check_function(words[0]) and not check_parameter(words[0]):
+					output_text(str('[color=red]!!!EXECUTION FAILED!!![/color]\n',
+					"Execution could not be completed on [color=maroon]", command_word, " ", words[0], "[/color]",
+					"\nPlease check spelling and that the [color=green]command[/color]/[color=yellow]function[/color]/[color=aqua]parameter[/color] is valid!"))
+					return
+	
 			# We made it through all of the checks so execute the command 
 			# and add it to the command history array
 			callv(command_word, words)
 			
 			# Only insert valid commands into the command history
 			if words.size() > 0:
-				# Store the parameters of the command
-				var parameter = ""
+				# Store the contents of the command
+				var contents = ""
 				for w in range(words.size()):
-					if w != words.size() - 1:
-						parameter += words[w] + " "
-					else:
-						parameter += words[w]
 					
-				command_history.insert(0, command_word + " " + parameter)
+					# Adds a space between function name and parameter
+					if w != words.size() - 1:
+						contents += words[w] + " "
+					else:
+						contents += words[w]
+				
+				# Loop through and make sure we don't keep anymore "dots" than necessary
+				# (Specifically used in float arguments).
+				var trimmed = ""
+				var dot_counter = 0
+				
+				for i in range(contents.length()):
+					if contents[i] == ".":
+						# Strike!
+						dot_counter += 1
+					
+					# Only store the contents if we haven't found two dots
+					if dot_counter < 2:
+						trimmed += contents[i]
+				
+				# Now we can add the command to the command history
+				command_history.insert(0, command_word + " " + trimmed)
 			else:
 				# No parameters, so only store the command word
 				command_history.insert(0, command_word)
@@ -169,10 +218,13 @@ func execute_command(var text : String):
 			if command_history.size() > command_history_limit:
 				command_history.remove(command_history.size() - 1)
 			
+			# Inform the user the command was executed succesfully while debugmode is on
+			if GameManager.debugmode:
+				output_text(str('[[color=fuchsia]debug log[/color]]--> [color=lime]', command_history[0], '[/color] executed succesfully!'))
 			return
 		
 	# Tell the user the command doesn't exist
-	output_text(str("[color=red]ERROR: [/color]", '"', command_word, '" is not a valid command!'))
+	output_text(str("[color=red]ERROR: [/color]", '"', command_word, '" does not exist!'))
 	
 
 # -- ls(parameter) 
@@ -187,11 +239,10 @@ func ls(parameter):
 		
 # Clears the console
 func clear():
-	$Panel/Output.bbcode_text = reset_text
+	output.bbcode_text = reset_text
 	
-# Clears and exits the console
+# Exits the console
 func exit():
-	$Panel/Output.bbcode_text = reset_text
 	hide()
 
 # -- set(function, parameter) function
@@ -200,13 +251,13 @@ func set(function, parameter):
 	if function == "debugmode": # Set the debug mode on or off
 		if parameter == "on":
 			GameManager.debugmode = true
-			output_text('[color=yellow]Set debugmode to ON.[/color]')
+			output_text('[color=teal]Set debugmode to ON.[/color]')
 		else:
 			GameManager.debugmode = false
-			output_text('[color=yellow]Set debugmode to OFF.[/color]')
+			output_text('[color=teal]Set debugmode to OFF.[/color]')
 	
 	if function == "speed": # Set the speed of the player
-		output_text(str('[color=yellow]Set Player Speed to ', float(parameter), ".[/color]"))
+		output_text(str('[color=teal]Set Player Speed to ', float(parameter), ".[/color]"))
 	
 	if function == "godmode": # Sets godmode on or off, making the player invincible
 		print("TODO: add godmode")
@@ -224,23 +275,25 @@ func set(function, parameter):
 # Used to get help with a particular command or function
 func help(function):
 	if function == "set":
-		output_text(str("[color=green]set[/color] -- Expects one (1) function, i.e,"))
-		output_text(str("[color=green]speed (arg: number speed)[/color]",
-		" -- Sets the speed of the player."))
-		output_text(str("[color=green]debugmode (arg: bool on/off)[/color]", 
-		" -- Turns debugging [color=yellow]on/off[/color]."))
+		output_text(str("-- [color=green]set[/color] [color=yellow]<function>[/color] [color=aqua]<parameter>[/color] --\n",
+		'[color=green]Set[/color] needs two parameters - the [color=yellow]function[/color] ',
+		"to call, and the [color=aqua]parameter[/color] for the [color=yellow]function[/color].",
+		'\nFor Example, [color=green]Set[/color] [color=yellow]Speed[/color] [color=aqua]2.45[/color] will set the player speed to 2.45.'))
 	if function == "ls":
-		output_text(str("[color=green]ls[/color] -- Expects [color=yellow]commands[/color] or [color=yellow]functions[/color] as input, ",
-		"and lists all valid commands/functions. "))
+		output_text(str("-- [color=green]ls[/color][color=aqua] <commands> <functions> [/color]-- \n",
+		"Requires [color=aqua]commands[/color] or [color=aqua]functions[/color] as the parameter, ",
+		"and lists all valid commands/functions. \nFor example, type [color=green]ls[/color] [color=aqua]functions[/color]."))
 	if function == "clear":
-		output_text(str("[color=green]clear[/color] -- Clears the console."))
+		output_text(str("[color=silver]-- Help for[/color] [color=green]clear[/color] [color=silver]--[/color] \n",
+		"Clears the console."))
 	if function == "exit":
-		output_text(str('[color=green]exit[/color] -- Clears and exits the console.'))
+		output_text(str("[color=silver]-- Help for[/color] [color=green]exit[/color][color=silver] --[/color] \n",
+		"Exits the console.  Does not clear console of text and keeps command history."))
 	if function == "help":
-		output_text("very cute ;P")
+		output_text("The answer to Life, the Universe, and Everything = [color=aqua]42[/color].")
 
 # Checks the parameter type supplied with the command and ensures it's valid.
-func check_type(string, type):
+func check_args(string, type):
 	if type == ARG_BOOL:
 		return (string == "on" or string == "off")
 		
@@ -264,13 +317,6 @@ func check_function(string):
 
 # Used with "help" command to ensure that the qualifier is indeed a command
 func check_command(string):
-	# First we need to get the first value of the commands array and store it in separate
-	# comms array for comparison. We don't care about the parameters at the moment.
-	# Only do this if the comms array is empty, so that we don't have to do it every time.
-	if comms.empty():
-		for c in commands:
-			comms.append(c[0])
-
 	# Search for the command and check that it actually exists
 	if comms.find(string, 0) == -1:
 		# Nothing was found
@@ -278,21 +324,38 @@ func check_command(string):
 	else:
 		# A match was found
 		return true
+		
+func check_parameter(string):
+	if parameters.find(string, 0) == -1:
+		return false
+	else:
+		return true
 
 # Output text to console with formatting
 func output_text(var text : String):
-	$Panel/Output.bbcode_text += "\n" + text
-
+	output.append_bbcode("\n" + text)
+	
 # When the user enters text
 func _on_Input_text_entered(new_text):
+	test(new_text)
 	# Stop showing history, if we are in fact showing it
 	show_history = false
 	# Clears the input
-	$Input.clear()
-
-	# Only output when the new text isn't blank
+	input.clear()
+	# Only output text when the new text isn't blank
 	if not new_text == "":
 		# Execute the text but first convert it to all lowercase
 		var text = new_text.to_lower()
 		execute_command(text)
 
+func test(var args):
+	var text = args.split(" ", false)
+	text = Array(text)
+	print(text)
+	print(text.size())
+
+func _on_CopyToClipboard_pressed():
+	# Copy the contents of debug info to the user's clipboard
+	OS.set_clipboard(debug.text)
+	output_text("[color=yellow]Succesfully copied debug info to clipboard![/color]")
+	pass # Replace with function body.

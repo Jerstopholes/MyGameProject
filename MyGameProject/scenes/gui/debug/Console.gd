@@ -94,8 +94,8 @@ func _process(delta):
 		
 	# Allow the display of debug information when enabled
 	if GameManager.debugmode:
-		$Tabs.set_tab_disabled(1, false)
-		$Tabs.set_tab_title(1, "Debug Info")
+		tabs.set_tab_disabled(1, false)
+		tabs.set_tab_title(1, "Debug")
 	else:
 		$Tabs.set_tab_disabled(1, true)
 		$Tabs.set_tab_title(1, "")

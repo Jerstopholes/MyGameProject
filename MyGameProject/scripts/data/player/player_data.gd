@@ -8,6 +8,10 @@ var current_astral_energy : float
 var max_astral_energy : float
 var max_astral_energy_multiplier : float
 
+# These variables control the movement speed of the player
+var move_speed : float
+var max_move_speed : float
+
 # This stores the player's name, level information and save file name
 var player_name : String
 var level_player_is_in : String
@@ -34,6 +38,8 @@ func initialize(var game : String):
 	current_astral_energy = 50.0
 	max_astral_energy = 50.0
 	max_astral_energy_multiplier = 1.0
+	move_speed = 3.0
+	max_move_speed = 3.5
 	total_secrets_found = 0
 	total_inhabited_people = 0
 	total_inhabited_objects = 0

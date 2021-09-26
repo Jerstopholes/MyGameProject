@@ -2,16 +2,19 @@ extends DebugCommand
 
 
 func debugmode(arg):
+	executed = false
 	if arg == "on":
 		GameManager.debugmode = true
-		output_text('"debugmode on" Executed succesfully!')
+		debug_log("Debug Mode is now on")
+		executed = true
 		return
 	if arg == "off":
+		debug_log("Debug Mode is now off")
 		GameManager.debugmode = false
-		output_text('"debugmode off" Executed succesfully!')
-		return
+		executed = true
+		return 
 	else:
-		output_text(str("[color=red]ERROR[/color]: ", 'Could not execute "debugmode"!\n', 
-		'The specified parameter of "', arg, '" is not correct! Use either "on" or "off".'))
+		output_text(str(error, 'Could not execute "debugmode"!\n', 
+		'Parameter "', arg, '" is not valid! Use either "on" or "off".'))
 		return
 		

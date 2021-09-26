@@ -38,5 +38,3 @@ __meta__ = {
 }
 
 [node name="DebugConsole" parent="." instance=ExtResource( 3 )]
-
-[editable path="DebugConsole"]

@@ -12,8 +12,9 @@ func define(arg):
 				found = true
 
 	
-				output_text(str("[color=teal]", _arg._name, "[/color]\n", _arg._desc))
-				debug_log("Succesfully defined " + _arg.name + "!")
+				output_text(str("[u]Definition for ",
+						"[color=aqua]", _arg._name.to_upper(),
+						 "[/color][/u]\n", _arg._desc))
 				executed = true
 
 	if not found:

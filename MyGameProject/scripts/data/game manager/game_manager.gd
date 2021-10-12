@@ -8,11 +8,24 @@ var path : String = "user://saves/"
 var ext : String = ".jwg" # In Doc Brown's voice: "MY INITIALS!"
 
 # This is used to track whether or not we should allow the console to be brought up
-var debugmode : bool = false
-var devops : bool = true
+var debugmode : bool = true
+var request_quit : bool = false
+var console_active : bool = false
+
+# This is used to count the game play time
+var calculate_time : bool = true
+
+var hours : int = 0
+var mins : int = 0
+var secs : float = 0.0
+var hours_mins : String = ""
+var total_time : String = ""
+
+var play_time = {}
 
 # The currently selected game file
-var current_game_file : String = "new_blank"
+var current_game_file : String = "sample"
+
 
 # This enum helps us determine properties of a game file
 enum property {NAME, USED}
@@ -20,6 +33,38 @@ enum property {NAME, USED}
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	start_new_game(current_game_file)
+	set_process(true)
+	
+# Calculates time elapsed and nothing else
+func _process(delta):
+	# Calculate the elapsed time
+	# Store the playtime for the player separately, but use this as the base
+	if round(secs) == 60:
+		mins += 1
+		player.total_play_time.mins += 1
+		print(str("Uptime: ", player.total_play_time))
+		
+		secs = 0
+	else:
+		secs += delta
+		
+	if mins == 60:
+		hours += 1
+		player.total_play_time.hours += 1
+		mins = 0
+	
+	total_time = str("Hours: ", hours, " Mins: ", mins, " Secs: ", round(secs))
+	hours_mins = str("Hours: ", hours, " Mins: ", mins)
+	
+	# Store the playtime in a dictionary for easy lookup
+	play_time = {
+		"hours" : hours,
+		"mins" : mins,
+		"secs" : round(secs),
+		"hours_mins" : hours_mins,
+		"total_time" : total_time
+	}
+	
 
 # When called, this starts a new game
 func start_new_game(var player_name : String):

@@ -1,0 +1,105 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://scenes/gui/dialogs/QuitBox.gd" type="Script" id=1]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.164062, 0.164062, 0.164062, 1 )
+
+[sub_resource type="StyleBoxFlat" id=2]
+content_margin_left = 3.0
+content_margin_right = 3.0
+content_margin_top = 3.0
+content_margin_bottom = 3.0
+bg_color = Color( 0.6, 0.6, 0.6, 0 )
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+
+[sub_resource type="StyleBoxFlat" id=3]
+content_margin_left = 3.0
+content_margin_right = 3.0
+content_margin_top = 3.0
+content_margin_bottom = 3.0
+bg_color = Color( 0.25098, 0.25098, 0.25098, 1 )
+
+[sub_resource type="StyleBoxFlat" id=4]
+content_margin_left = 3.0
+content_margin_right = 3.0
+content_margin_top = 3.0
+content_margin_bottom = 3.0
+bg_color = Color( 0.345098, 0.345098, 0.345098, 1 )
+
+[sub_resource type="StyleBoxFlat" id=5]
+content_margin_left = 3.0
+content_margin_right = 3.0
+content_margin_top = 3.0
+content_margin_bottom = 3.0
+bg_color = Color( 0.164706, 0.164706, 0.164706, 1 )
+
+[sub_resource type="StyleBoxFlat" id=6]
+content_margin_left = 6.0
+content_margin_right = 6.0
+content_margin_top = 6.0
+content_margin_bottom = 6.0
+bg_color = Color( 0.235294, 0.231373, 0.231373, 1 )
+border_width_left = 1
+border_width_top = 20
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color( 0.45098, 0.45098, 0.45098, 1 )
+expand_margin_top = 20.0
+
+[sub_resource type="DynamicFontData" id=7]
+antialiased = false
+hinting = 0
+font_path = "res://assets/fonts/fiery-turk-font/FieryTurk-zypw.ttf"
+
+[sub_resource type="DynamicFont" id=8]
+size = 8
+font_data = SubResource( 7 )
+
+[sub_resource type="Theme" id=9]
+default_font = SubResource( 8 )
+Button/colors/font_color = Color( 0.88, 0.88, 0.88, 1 )
+Button/colors/font_color_disabled = Color( 0.9, 0.9, 0.9, 0.2 )
+Button/colors/font_color_hover = Color( 0.94, 0.94, 0.94, 1 )
+Button/colors/font_color_pressed = Color( 1, 1, 1, 1 )
+Button/constants/hseparation = 2
+Button/fonts/font = null
+Button/styles/disabled = SubResource( 1 )
+Button/styles/focus = SubResource( 2 )
+Button/styles/hover = SubResource( 3 )
+Button/styles/normal = SubResource( 4 )
+Button/styles/pressed = SubResource( 5 )
+WindowDialog/colors/title_color = Color( 1, 1, 1, 1 )
+WindowDialog/constants/close_h_ofs = 18
+WindowDialog/constants/close_v_ofs = 18
+WindowDialog/constants/scaleborder_size = 4
+WindowDialog/constants/title_height = 20
+WindowDialog/fonts/title_font = null
+WindowDialog/icons/close = null
+WindowDialog/icons/close_highlight = null
+WindowDialog/styles/panel = SubResource( 6 )
+
+[node name="QuitDialog" type="CanvasLayer"]
+
+[node name="QuitBox" type="ConfirmationDialog" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -90.0
+margin_top = -35.0
+margin_right = 100.0
+margin_bottom = 35.0
+theme = SubResource( 9 )
+popup_exclusive = true
+window_title = "Quit?!?!"
+dialog_text = "Do you really want to quit?"
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="confirmed" from="QuitBox" to="QuitBox" method="_on_QuitBox_confirmed"]

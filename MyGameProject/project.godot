@@ -20,26 +20,61 @@ _global_script_classes=[ {
 "path": "res://scripts/data/player/player_data.gd"
 } ]
 _global_script_class_icons={
-"DebugCommand": "res://assets/icons/DebugConsoleIcon.png",
+"DebugCommand": "res://assets/icons/debugconsoleiconoutlined.png",
 "PlayerData": ""
 }
 
 [application]
 
-config/name="SecretGame"
-run/main_scene="res://scenes/levels/test worlds/PrimaryTestingScene.tscn"
-config/icon="res://icon.png"
+config/name="The Adventures of Pixel Person!"
+run/main_scene="res://scenes/levels/test worlds/2DTest.tscn"
+config/use_custom_user_dir=true
+config/custom_user_dir_name="GameCompanyName/PixelPerson"
+boot_splash/bg_color=Color( 0, 0, 0, 1 )
+config/icon="res://assets/icons/game_icon.png"
 
 [autoload]
 
 GameManager="*res://scripts/data/game manager/game_manager.gd"
+IntegerResolutionHandler="*res://addons/integer_resolution_handler/integer_resolution_handler.gd"
 
 [display]
 
-window/size/width=1280
-window/size/height=720
-window/stretch/mode="2d"
-window/stretch/aspect="expand"
+window/integer_resolution_handler/base_width=640
+window/integer_resolution_handler/base_height=360
+window/size/width=640
+window/size/height=360
+window/size/test_width=1920
+window/size/test_height=1080
+window/stretch/mode="viewport"
+window/stretch/aspect="keep"
+
+[editor_plugins]
+
+enabled=PoolStringArray( "res://addons/integer_resolution_handler/plugin.cfg", "res://addons/smoothing/plugin.cfg" )
+
+[importer_defaults]
+
+texture={
+"compress/bptc_ldr": 0,
+"compress/hdr_mode": 0,
+"compress/lossy_quality": 0.7,
+"compress/mode": 0,
+"compress/normal_map": 0,
+"detect_3d": false,
+"flags/anisotropic": false,
+"flags/filter": false,
+"flags/mipmaps": false,
+"flags/repeat": 0,
+"flags/srgb": 2,
+"process/HDR_as_SRGB": false,
+"process/fix_alpha_border": true,
+"process/invert_color": false,
+"process/premult_alpha": false,
+"size_limit": 0,
+"stream": false,
+"svg/scale": 1.0
+}
 
 [input]
 
@@ -70,5 +105,14 @@ common/enable_pause_aware_picking=true
 
 [rendering]
 
+quality/driver/driver_name="GLES2"
+quality/intended_usage/framebuffer_allocation=0
+quality/intended_usage/framebuffer_allocation.mobile=0
+2d/snapping/use_gpu_pixel_snap=true
+gles2/compatibility/disable_half_float=true
+batching/precision/uv_contract=true
 environment/default_environment="res://default_env.tres"
 quality/dynamic_fonts/use_oversampling=false
+batching/snapping/use_gpu_pixel_snap=true
+batching/stretch/mode="viewport"
+batching/stretch/aspect="keep"

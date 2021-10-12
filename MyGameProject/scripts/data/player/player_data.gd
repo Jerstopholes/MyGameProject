@@ -23,6 +23,11 @@ var total_secrets_found : int
 var total_inhabited_people : int
 var total_inhabited_objects : int
 
+# These variable track how long the player has played for in hours and minutes
+var total_play_time = {}
+var hours : int
+var mins : int
+
 # This lets us know if the save file is writeable
 var is_save_file_used : bool
 
@@ -44,8 +49,11 @@ func initialize(var game : String):
 	total_inhabited_people = 0
 	total_inhabited_objects = 0
 	is_save_file_used = true
-
-
+	total_play_time = {
+		"hours" : hours,
+		"mins" : mins
+	}
+	
 # Returns all of the player's current statistics
 func get_statistics(var data : PlayerData):
 	print("The data of Player " + data.player_name +":\n", inst2dict(data))

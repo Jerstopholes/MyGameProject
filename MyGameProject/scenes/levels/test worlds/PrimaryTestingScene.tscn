@@ -7,7 +7,7 @@
 [sub_resource type="DynamicFontData" id=1]
 antialiased = false
 hinting = 0
-font_path = "res://assets/fonts/pixel-tandysoft-font/PixelTandysoft-0rJG.ttf"
+font_path = "res://assets/fonts/fiery-turk-font/FieryTurk-zypw.ttf"
 
 [sub_resource type="DynamicFont" id=2]
 size = 20

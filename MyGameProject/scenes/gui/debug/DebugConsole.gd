@@ -5,7 +5,6 @@ export (int) var history_limit = 20
 
 onready var input = $Input
 onready var output = $Output
-onready var debug = $Debug
 
 var error = "\n[color=red]ERROR[/color]: "
 var reset_text : String = ""
@@ -44,17 +43,27 @@ func _process(_delta):
 
 	var fullscreen = OS.is_window_fullscreen()
 	var vsync = OS.is_vsync_enabled()
+	var memory_usage_mb = stepify(Performance.get_monitor(Performance.MEMORY_STATIC) / (1024*1024), 0.001)
+	var memory_usage_gb = stepify(Performance.get_monitor(Performance.MEMORY_STATIC) / (1024*1024*1024), 0.0001)
 	
-	debug.bbcode_text = str("\n[color=aqua]-- Performance[/color]\n[color=purple]FPS[/color]: ", fps,
-	"   |   [color=purple]Physics Steps[/color]: ", "Set to ", phys_fps,
-	"   |   [color=purple]CPU Threads[/color]: ", OS.get_processor_count(),
-	"   |   [color=purple]pID[/color]: ", OS.get_process_id(),
-	"   |   [color=purple]RAM Usage[/color]: ", OS.get_static_memory_usage() / (1024*1024)," MB",
-	"\n[color=aqua]-- Rendering Specifications[/color]",
-	"\n[color=purple]Window Size[/color]: ", win_size.x, "x", win_size.y, "   |   [color=purple]Fullscreen[/color]: ", 
-	fullscreen, "   |   [color=purple]VSync Enabled[/color]: ", vsync,
-	"\n[color=aqua]-- Other Information[/color]",
-	"\n[color=purple]Game Uptime[/color]: ", GameManager.play_time.total_time)
+	$Tabs/Performance.bbcode_text = str("[color=purple]FPS[/color]: ", fps,
+			"\n[color=purple]Physics Steps[/color]: ", "Set to ", phys_fps,
+			"\n[color=purple]Process Time[/color]: ", 
+			Performance.get_monitor(Performance.TIME_PROCESS)," ms",
+			"\n[color=purple]Phyics Process Time[/color]: ", 
+			Performance.get_monitor(Performance.TIME_PHYSICS_PROCESS), " ms",
+			"\n[color=purple]Process ID[/color]: ", OS.get_process_id(),
+			"\n[color=purple]Current RAM Usage[/color]: ", memory_usage_mb," MB (", memory_usage_gb, " GB)")
+			
+	$Tabs/Rendering.bbcode_text = str("[color=purple]Window Size[/color]: ",
+			win_size.x, "x", win_size.y,
+			"\n[color=purple]Base Resolution[/color]: ", IntegerResolutionHandler.base_resolution.x,
+			"x", IntegerResolutionHandler.base_resolution.y,
+			"\n[color=purple]Fullscreen Enabled[/color]: ", fullscreen, 
+			"\n[color=purple]VSync Enabled[/color]: ", vsync,
+			"\n[color=purple]Objects in Scene[/color]: ",
+			Performance.get_monitor(Performance.OBJECT_COUNT)
+			)
 	
 	# Control focus modes 
 	if $History.has_focus():
@@ -186,3 +195,15 @@ func _on_monitor_pressed():
 		OS.shell_open("resmon")
 	else:
 		print("what")
+
+func _on_savefolder_pressed():
+	OS.shell_open(OS.get_user_data_dir()+"/saves")
+	output.append_bbcode(str("\nOpened the save folder!"))
+	
+
+func _on_exitconsole_pressed():
+	hide()
+
+func _on_clearhistory_pressed():
+	$History.items = []
+	output.append_bbcode(str("\nCleared the Command History!"))

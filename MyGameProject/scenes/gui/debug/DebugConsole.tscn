@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=2]
+[gd_scene load_steps=38 format=2]
 
 [ext_resource path="res://scenes/gui/debug/command scripts/fullscreen.gd" type="Script" id=1]
 [ext_resource path="res://scenes/gui/debug/DebugConsole.gd" type="Script" id=2]
@@ -9,9 +9,23 @@
 [ext_resource path="res://scenes/gui/debug/command scripts/exit.gd" type="Script" id=7]
 [ext_resource path="res://scenes/gui/debug/command scripts/vsync.gd" type="Script" id=8]
 [ext_resource path="res://scenes/gui/debug/command scripts/setspeed.gd" type="Script" id=9]
-[ext_resource path="res://scenes/gui/debug/command scripts/opensavefolder.gd" type="Script" id=10]
-[ext_resource path="res://scenes/gui/debug/command scripts/emptyhistory.gd" type="Script" id=11]
 [ext_resource path="res://scenes/gui/debug/command scripts/quit.gd" type="Script" id=12]
+
+[sub_resource type="StyleBoxFlat" id=39]
+bg_color = Color( 0.6, 0.6, 0.6, 0 )
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+
+[sub_resource type="StyleBoxFlat" id=40]
+bg_color = Color( 0.470588, 0.470588, 0.470588, 1 )
+
+[sub_resource type="StyleBoxFlat" id=41]
+bg_color = Color( 0.388235, 0.388235, 0.388235, 1 )
+
+[sub_resource type="StyleBoxFlat" id=42]
+bg_color = Color( 0.27451, 0.27451, 0.27451, 1 )
 
 [sub_resource type="DynamicFontData" id=1]
 antialiased = false
@@ -24,23 +38,31 @@ font_data = SubResource( 1 )
 
 [sub_resource type="Theme" id=3]
 default_font = SubResource( 2 )
+Button/colors/font_color = Color( 0.88, 0.88, 0.88, 1 )
+Button/colors/font_color_disabled = Color( 0.9, 0.9, 0.9, 0.2 )
+Button/colors/font_color_hover = Color( 0.94, 0.94, 0.94, 1 )
+Button/colors/font_color_pressed = Color( 1, 1, 1, 1 )
+Button/constants/hseparation = 2
+Button/fonts/font = null
+Button/styles/disabled = null
+Button/styles/focus = SubResource( 39 )
+Button/styles/hover = SubResource( 40 )
+Button/styles/normal = SubResource( 41 )
+Button/styles/pressed = SubResource( 42 )
 
 [sub_resource type="StyleBoxFlat" id=4]
-border_width_right = 2
-border_color = Color( 0, 1, 0.109804, 1 )
-expand_margin_left = 6.0
+border_width_right = 1
+expand_margin_bottom = 1.0
 
 [sub_resource type="StyleBoxFlat" id=5]
 bg_color = Color( 0.784314, 0.784314, 0.784314, 1 )
-border_width_right = 2
-border_color = Color( 0, 1, 0.109804, 1 )
-expand_margin_left = 6.0
+border_width_right = 1
+expand_margin_bottom = 1.0
 
 [sub_resource type="StyleBoxFlat" id=6]
 bg_color = Color( 0.364706, 0.364706, 0.364706, 1 )
-border_width_right = 2
-border_color = Color( 0, 1, 0.109804, 1 )
-expand_margin_left = 6.0
+border_width_right = 1
+expand_margin_bottom = 1.0
 
 [sub_resource type="StyleBoxFlat" id=7]
 content_margin_left = 4.0
@@ -65,11 +87,10 @@ VScrollBar/styles/scroll_focus = null
 
 [sub_resource type="StyleBoxFlat" id=9]
 bg_color = Color( 0, 0.254902, 0.219608, 1 )
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color( 0, 1, 0.109804, 1 )
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
 
 [sub_resource type="StyleBoxFlat" id=10]
 content_margin_left = 12.0
@@ -77,42 +98,10 @@ content_margin_right = 12.0
 content_margin_top = 12.0
 content_margin_bottom = 12.0
 bg_color = Color( 0, 0, 0, 1 )
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color( 0, 1, 0.109804, 1 )
-
-[sub_resource type="StyleBoxFlat" id=11]
-content_margin_left = 12.0
-content_margin_right = 12.0
-content_margin_top = 12.0
-content_margin_bottom = 12.0
-bg_color = Color( 0.0784314, 0.0784314, 0.0784314, 1 )
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color( 0, 1, 0.109804, 1 )
-
-[sub_resource type="StyleBoxFlat" id=12]
-content_margin_left = 12.0
-content_margin_right = 12.0
-content_margin_top = 24.0
-content_margin_bottom = 12.0
-bg_color = Color( 0, 0, 0, 1 )
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color( 0, 1, 0.109804, 1 )
-
-[sub_resource type="StyleBoxFlat" id=13]
-bg_color = Color( 0.45098, 1, 0.509804, 0.380392 )
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color( 0, 1, 0.109804, 1 )
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
 
 [sub_resource type="StyleBoxFlat" id=14]
 bg_color = Color( 0.6, 0.6, 0.6, 0 )
@@ -122,13 +111,16 @@ border_width_right = 1
 border_width_bottom = 1
 border_color = Color( 0, 1, 0.905882, 1 )
 
-[sub_resource type="StyleBoxFlat" id=19]
-bg_color = Color( 0, 0.254902, 0.219608, 1 )
-border_width_left = 2
-border_width_right = 2
-border_color = Color( 0, 1, 0.109804, 1 )
-
 [sub_resource type="StyleBoxFlat" id=15]
+content_margin_top = 24.0
+content_margin_bottom = 16.0
+bg_color = Color( 0, 0.254902, 0.219608, 1 )
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+
+[sub_resource type="StyleBoxFlat" id=16]
 bg_color = Color( 0.6, 0.6, 0.6, 0 )
 border_width_left = 1
 border_width_top = 1
@@ -136,36 +128,92 @@ border_width_right = 1
 border_width_bottom = 1
 border_color = Color( 0, 1, 0.905882, 1 )
 
-[sub_resource type="StyleBoxFlat" id=16]
+[sub_resource type="StyleBoxFlat" id=17]
 content_margin_left = 8.0
 content_margin_right = 8.0
 content_margin_top = 8.0
 content_margin_bottom = 8.0
 bg_color = Color( 0.6, 0.6, 0.6, 0 )
-border_width_left = 2
-border_color = Color( 0, 1, 0.109804, 1 )
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
 
-[sub_resource type="StyleBoxFlat" id=17]
-content_margin_left = 10.0
-bg_color = Color( 0, 0.254902, 0.219608, 1 )
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color( 0, 1, 0.109804, 1 )
+[sub_resource type="StyleBoxFlat" id=38]
+bg_color = Color( 0.6, 0.6, 0.6, 0 )
+border_width_top = 1
+border_width_right = 1
+
+[sub_resource type="StyleBoxFlat" id=37]
+bg_color = Color( 0.6, 0.6, 0.6, 0 )
 
 [sub_resource type="StyleBoxFlat" id=18]
 content_margin_left = 10.0
+bg_color = Color( 0, 0.254902, 0.219608, 1 )
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+
+[sub_resource type="StyleBoxFlat" id=19]
+content_margin_left = 10.0
+bg_color = Color( 0, 0, 0, 0 )
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+
+[sub_resource type="StyleBoxFlat" id=36]
+bg_color = Color( 0.6, 0.6, 0.6, 0 )
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+
+[sub_resource type="StyleBoxFlat" id=32]
+content_margin_left = 3.0
+content_margin_right = 3.0
+content_margin_top = 3.0
+content_margin_bottom = 3.0
+bg_color = Color( 0.129412, 0.356863, 0.176471, 1 )
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+
+[sub_resource type="StyleBoxFlat" id=33]
+content_margin_left = 3.0
+content_margin_right = 3.0
+content_margin_top = 3.0
+content_margin_bottom = 3.0
+bg_color = Color( 0.270588, 0.337255, 0.282353, 1 )
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+
+[sub_resource type="StyleBoxFlat" id=35]
+content_margin_left = 3.0
+content_margin_right = 3.0
+content_margin_top = 3.0
+content_margin_bottom = 3.0
+bg_color = Color( 0.266667, 0.184314, 0.176471, 1 )
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+
+[sub_resource type="StyleBoxFlat" id=34]
+content_margin_left = 12.0
+content_margin_right = 12.0
+content_margin_top = 12.0
+content_margin_bottom = 12.0
 bg_color = Color( 0, 0, 0, 1 )
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color( 0, 1, 0.109804, 1 )
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
 
 [node name="DebugLayer" type="CanvasLayer"]
 
-[node name="DebugConsole" type="Control" parent="."]
+[node name="DebugConsole" type="ColorRect" parent="."]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -175,17 +223,19 @@ margin_top = -271.124
 margin_right = 479.999
 margin_bottom = 271.124
 theme = SubResource( 3 )
+color = Color( 0, 0, 0, 1 )
 script = ExtResource( 2 )
 __meta__ = {
-"_edit_use_anchors_": false
+"_edit_lock_": true
 }
 
 [node name="Output" type="RichTextLabel" parent="DebugConsole"]
-anchor_left = 0.166667
-anchor_top = 0.540572
-anchor_right = 0.833333
-anchor_bottom = 0.795068
+anchor_left = 0.169792
+anchor_top = 0.48133
+anchor_right = 0.659376
+anchor_bottom = 0.789307
 rect_pivot_offset = Vector2( 1167, 256 )
+focus_mode = 2
 theme = SubResource( 8 )
 custom_styles/focus = SubResource( 9 )
 custom_styles/normal = SubResource( 10 )
@@ -202,71 +252,22 @@ __meta__ = {
 "_edit_use_anchors_": true
 }
 
-[node name="Debug" type="RichTextLabel" parent="DebugConsole"]
-anchor_left = 0.166667
-anchor_top = 0.16782
-anchor_right = 0.833333
-anchor_bottom = 0.544031
-custom_styles/focus = SubResource( 11 )
-custom_styles/normal = SubResource( 12 )
-bbcode_enabled = true
-bbcode_text = "
-
-"
-text = "
-
-"
-scroll_active = false
-__meta__ = {
-"_edit_use_anchors_": true
-}
-
-[node name="HistoryLabel" type="Label" parent="DebugConsole"]
+[node name="History" type="ItemList" parent="DebugConsole"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 margin_left = 152.001
-margin_top = -180.124
-margin_right = 320.001
-margin_bottom = -151.124
-custom_styles/normal = SubResource( 13 )
-text = "- - - Command History - - - "
-align = 1
-valign = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="DebugLabel" type="Label" parent="DebugConsole"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -320.0
-margin_top = -180.124
-margin_right = 154.0
-margin_bottom = -151.124
-custom_styles/normal = SubResource( 13 )
-text = "- - - General Debugging Information - - - 																																											"
-align = 1
-valign = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="History" type="ItemList" parent="DebugConsole"]
-margin_left = 632.0
-margin_top = 120.0
-margin_right = 800.0
-margin_bottom = 293.0
+margin_top = -10.124
+margin_right = 317.001
+margin_bottom = 180.876
 hint_tooltip = "Command History."
 focus_next = NodePath("../Input")
 focus_previous = NodePath("../Input")
 custom_styles/selected_focus = SubResource( 14 )
-custom_styles/bg_focus = SubResource( 19 )
-custom_styles/selected = SubResource( 15 )
-custom_styles/bg = SubResource( 16 )
+custom_styles/bg_focus = SubResource( 15 )
+custom_styles/selected = SubResource( 16 )
+custom_styles/bg = SubResource( 17 )
 custom_colors/guide_color = Color( 0, 0, 0, 0 )
 custom_colors/font_color_selected = Color( 0.886275, 0.333333, 1, 1 )
 custom_colors/font_color = Color( 0, 1, 0.109804, 1 )
@@ -275,32 +276,166 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="HistoryLabel" type="Label" parent="DebugConsole"]
+anchor_left = 0.5
+anchor_top = 0.463116
+anchor_right = 0.5
+anchor_bottom = 0.461272
+margin_left = 152.001
+margin_top = -9.12396
+margin_right = 317.001
+margin_bottom = 10.876
+custom_styles/normal = SubResource( 38 )
+text = "-- Command History Window --"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="DebugLabel" type="Label" parent="DebugConsole"]
+anchor_left = 0.669792
+anchor_top = 0.669664
+anchor_right = 1.11667
+anchor_bottom = 0.68995
+margin_left = -479.999
+margin_top = -271.124
+margin_right = -439.999
+margin_bottom = -260.124
+custom_styles/normal = SubResource( 37 )
+text = "-- General Debugging Information --"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
 [node name="Input" type="LineEdit" parent="DebugConsole"]
-anchor_left = 0.166667
-anchor_top = 0.791151
-anchor_right = 0.833333
-anchor_bottom = 0.831722
+anchor_left = 0.169446
+anchor_top = 0.787219
+anchor_right = 0.829864
+anchor_bottom = 0.827791
+margin_left = 0.33252
+margin_top = 0.132019
+margin_right = -163.667
+margin_bottom = 2.13199
 focus_next = NodePath("../Output")
 focus_previous = NodePath("../History")
-custom_styles/focus = SubResource( 17 )
-custom_styles/normal = SubResource( 18 )
+custom_styles/focus = SubResource( 18 )
+custom_styles/normal = SubResource( 19 )
 custom_colors/font_color = Color( 0, 1, 0.109804, 1 )
 placeholder_text = "Enter Command Here"
 caret_blink = true
 caret_blink_speed = 0.45
 __meta__ = {
-"_edit_use_anchors_": true
+"_edit_use_anchors_": false
 }
 
-[node name="monitor" type="Button" parent="DebugConsole"]
-margin_left = 163.207
-margin_top = 262.682
-margin_right = 250.207
-margin_bottom = 291.682
+[node name="Common Operations" type="Label" parent="DebugConsole"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = 152.001
+margin_top = -158.124
+margin_right = 317.001
+margin_bottom = -9.12399
+grow_horizontal = 2
+grow_vertical = 2
+custom_styles/normal = SubResource( 36 )
+text = "Common Operations"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="monitor" type="Button" parent="DebugConsole/Common Operations"]
+margin_left = 31.999
+margin_top = 22.124
+margin_right = 127.999
+margin_bottom = 33.124
+hint_tooltip = "Opens Resource Monitor."
+focus_mode = 0
 text = "Resource Monitor"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="savefolder" type="Button" parent="DebugConsole/Common Operations"]
+margin_left = 31.999
+margin_top = 37.124
+margin_right = 127.999
+margin_bottom = 48.124
+hint_tooltip = "Opens \"saves\" folder."
+focus_mode = 0
+text = "Open Save Folder"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="exitconsole" type="Button" parent="DebugConsole/Common Operations"]
+margin_left = 31.999
+margin_top = 52.124
+margin_right = 127.999
+margin_bottom = 63.124
+hint_tooltip = "Exits the console."
+focus_mode = 0
+enabled_focus_mode = 0
+text = "Exit Console"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="clearhistory" type="Button" parent="DebugConsole/Common Operations"]
+margin_left = 31.999
+margin_top = 67.124
+margin_right = 127.999
+margin_bottom = 78.124
+hint_tooltip = "Clears Command History."
+focus_mode = 0
+text = "Clear History"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Tabs" type="TabContainer" parent="DebugConsole"]
+anchor_left = 0.169792
+anchor_top = 0.177041
+anchor_right = 0.659376
+anchor_bottom = 0.483174
+hint_tooltip = "Debugging metrics are shown here."
+custom_styles/tab_fg = SubResource( 32 )
+custom_styles/tab_disabled = SubResource( 33 )
+custom_styles/tab_bg = SubResource( 35 )
+custom_styles/panel = SubResource( 34 )
+tab_align = 0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Performance" type="RichTextLabel" parent="DebugConsole/Tabs"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 12.0
+margin_top = 29.0
+margin_right = -12.0
+margin_bottom = -12.0
+hint_tooltip = "Performance Metrics."
+bbcode_enabled = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Rendering" type="RichTextLabel" parent="DebugConsole/Tabs"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 12.0
+margin_top = 33.0
+margin_right = -12.0
+margin_bottom = -12.0
+hint_tooltip = "Rendering Metrics."
+bbcode_enabled = true
 
 [node name="clear" type="Node" parent="DebugConsole"]
 script = ExtResource( 4 )
@@ -346,24 +481,18 @@ _name = "fullscreen <on/off>"
 _desc = "Sets the game to fullscreen if desired."
 arguments = [ "" ]
 
-[node name="opensavefolder" type="Node" parent="DebugConsole"]
-script = ExtResource( 10 )
-_name = "opensavefolder"
-
 [node name="vsync" type="Node" parent="DebugConsole"]
 script = ExtResource( 8 )
 _name = "vsync <on/off>"
 _desc = "Sets Vertical Synchronization on or off."
 arguments = [ "" ]
 
-[node name="emptyhistory" type="Node" parent="DebugConsole"]
-script = ExtResource( 11 )
-_name = "emptyhistory"
-_desc = "Clears the Command History."
-
 [connection signal="focus_entered" from="DebugConsole/History" to="DebugConsole" method="_on_History_focus_entered"]
 [connection signal="focus_exited" from="DebugConsole/History" to="DebugConsole" method="_on_History_focus_exited"]
 [connection signal="item_activated" from="DebugConsole/History" to="DebugConsole" method="_on_History_item_activated"]
 [connection signal="item_selected" from="DebugConsole/History" to="DebugConsole" method="_on_History_item_selected"]
 [connection signal="text_entered" from="DebugConsole/Input" to="DebugConsole" method="_on_Input_text_entered"]
-[connection signal="pressed" from="DebugConsole/monitor" to="DebugConsole" method="_on_monitor_pressed"]
+[connection signal="pressed" from="DebugConsole/Common Operations/monitor" to="DebugConsole" method="_on_monitor_pressed"]
+[connection signal="pressed" from="DebugConsole/Common Operations/savefolder" to="DebugConsole" method="_on_savefolder_pressed"]
+[connection signal="pressed" from="DebugConsole/Common Operations/exitconsole" to="DebugConsole" method="_on_exitconsole_pressed"]
+[connection signal="pressed" from="DebugConsole/Common Operations/clearhistory" to="DebugConsole" method="_on_clearhistory_pressed"]
